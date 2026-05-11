@@ -1,3 +1,52 @@
-h1 {
-    color:green;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#gameScreen {
+  justify-items: center;
+  background: #ff6e7f;
+  background: #2193b0;
+  background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+
+  height: 100vh;
+}
+
+#titleText {
+  font-family: "Instrument Serif", serif;
+  font-weight: 600;
+  font-style: normal;
+  padding-top: 250px;
+  font-size: 80px;
+  color: white;
+}
+#startGameBtn {
+  font-family: "Instrument Serif", serif;
+  font-weight: 600;
+  font-style: normal;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+  font-size: 30px;
+  margin: 40px;
+  background-color: blue;
+  color: white;
+  display: grid;
+  justify-items: center;
+}
+
+/* font family copied code  */
+.instrument-serif-regular {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.instrument-serif-regular-italic {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
 }
