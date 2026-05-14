@@ -1,27 +1,32 @@
 //make gamescreen elements global scoped for future use
 //make the randomword appear, issues with it not being defined yet as its a lower function
+
 let words = [
-  "apple",
-  "mountain",
-  "ocean",
-  "bicycle",
-  "galaxy",
-  "window",
-  "forest",
-  "hammer",
-  "castle",
-  "bridge",
-  "river",
-  "journey",
-  "winter",
-  "flame",
-  "silver",
-  "garden",
-  "cloud",
-  "desert",
-  "silent",
-  "shadow",
+  ["apple", "appel", "apple", "pepla"],
+  ["mountain"],
+  ["ocean", "canoe"],
+  ["bicycle"],
+  ["galaxy"],
+  ["window"],
+  ["fetors", "forest", "fortes", "foster", "softer"],
+  ["hammer"],
+  ["castle", "cleats", "eclats"],
+  ["bridge", "begird"],
+  ["river"],
+  ["journey"],
+  ["winter", "twiner"],
+  ["flame", "fleam"],
+  ["ervils", "livers", "livres", "silver", "sliver"],
+  ["danger", "gander", "garden", "ranged"],
+  ["cloud", "could"],
+  ["desert", "deters", "rested"],
+  ["silent", "elints", "enlist", "inlets", "listen", "tinsel"],
+  ["shadow"],
 ];
+
+let userInput;
+let randomWord;
+let submitAnswerBtn = document.createElement("button");
 
 function loadScreen() {
   //delete start screen
@@ -34,8 +39,8 @@ function loadScreen() {
   let scrambledWordTitleText = document.createElement("h2");
   let scrambledWord = document.createElement("div");
   let timer = document.createElement("div");
-  let userInput = document.createElement("input"); //connect input to button
-  let submitAnswerBtn = document.createElement("button");
+  userInput = document.createElement("input"); //connect input to button
+
   let foundWords = document.createElement("div");
   outerDiv.id = "outerDiv";
   scrambledWord.id = "scrambledWord";
@@ -66,6 +71,7 @@ function loadScreen() {
   outerDiv.appendChild(scrambledWord);
   outerDiv.appendChild(timer);
   outerDiv.appendChild(userInput);
+
   outerDiv.appendChild(submitAnswerBtn);
   outerDiv.appendChild(foundWords);
   console.log(scrambleWord(words));
@@ -75,9 +81,12 @@ function loadScreen() {
 function scrambleWord(wordList) {
   //take random word from list and randomize it for future use
   let selectedIndex = Math.floor(Math.random() * wordList.length);
-  let randomWord = wordList[selectedIndex];
+  let innerArrayIndex = Math.floor(Math.random() * wordList[selectedIndex]);
+  randomWord =
+    wordList[selectedIndex[innerArrayIndexIndex]] || wordList[selectedIndex];
   console.log(randomWord);
 
+  //find element using index on randomword then turn element into string
   let scrambledWord = randomWord.split("");
   for (let i = scrambledWord.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -85,3 +94,12 @@ function scrambleWord(wordList) {
   }
   return scrambledWord.join("");
 }
+
+submitAnswerBtn.addEventListener("click", function () {
+  if (userInput.value == randomWord) {
+    console.log("success");
+
+    console.log("Button was clicked!");
+    alert("Hello World!");
+  }
+});
