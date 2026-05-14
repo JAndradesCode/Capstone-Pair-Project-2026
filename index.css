@@ -21,6 +21,11 @@
   padding-top: 250px;
   font-size: 80px;
   color: white;
+
+  text-shadow:
+    1px 1px white,
+    2px 2px black,
+    3px 3px gray;
 }
 #startGameBtn {
   font-family: "Instrument Serif", serif;
@@ -36,6 +41,51 @@
   color: white;
   display: grid;
   justify-items: center;
+}
+#outerDiv {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  height: 80vh;
+  width: 40%;
+  margin: auto;
+  background-color: rgba(186, 191, 209, 1);
+  border: 2px solid black;
+  border-radius: 30px;
+}
+#userInput {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 30px;
+  font-size: 30px;
+}
+
+#scrambledWord {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: 28px;
+  font-style: normal;
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  justify-self: center;
+  color: white;
+}
+#submitAnswerBtn {
+  background-color: #6dd5ed;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 200px;
+  padding-right: 200px;
+  font-size: 30px;
+}
+#scrambledWordTitleText {
+  font-size: 30px;
+  justify-self: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* font family copied code  */

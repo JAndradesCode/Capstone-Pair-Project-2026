@@ -1,5 +1,27 @@
-//needs to assemble gamescreen elements to look good and functional
 //make gamescreen elements global scoped for future use
+//make the randomword appear, issues with it not being defined yet as its a lower function
+let words = [
+  "apple",
+  "mountain",
+  "ocean",
+  "bicycle",
+  "galaxy",
+  "window",
+  "forest",
+  "hammer",
+  "castle",
+  "bridge",
+  "river",
+  "journey",
+  "winter",
+  "flame",
+  "silver",
+  "garden",
+  "cloud",
+  "desert",
+  "silent",
+  "shadow",
+];
 
 function loadScreen() {
   //delete start screen
@@ -9,6 +31,7 @@ function loadScreen() {
 
   //make game screen elements
   let outerDiv = document.createElement("div");
+  let scrambledWordTitleText = document.createElement("h2");
   let scrambledWord = document.createElement("div");
   let timer = document.createElement("div");
   let userInput = document.createElement("input"); //connect input to button
@@ -20,19 +43,40 @@ function loadScreen() {
   userInput.id = "userInput";
   submitAnswerBtn.id = "submitAnswerBtn";
   foundWords.id = "foundWords";
+  scrambledWordTitleText.id = "scrambledWordTitleText";
 
-  timer.textContent = "Hello World";
   //background color gradient
   document.body.style.backgroundColor = "#076585";
   document.body.style.background =
     "-webkit-linear-gradient(to right, #fff, #076585)";
   document.body.style.background = "linear-gradient(to right, #fff, #076585)";
+  scrambledWord.style.backgroundColor = "gray";
+  document.body.style.display = "flex";
+  document.body.style.justifyContent = "center";
+  document.body.style.alignItems = "center";
+  document.body.style.height = "100vh";
+  scrambledWord.textContent = "Placeholder Word";
+
+  submitAnswerBtn.textContent = "SUBMIT";
+  userInput.placeholder = "Type Answer Here..";
 
   //append gameScreen elements
   document.body.appendChild(outerDiv);
+
   outerDiv.appendChild(scrambledWord);
   outerDiv.appendChild(timer);
   outerDiv.appendChild(userInput);
   outerDiv.appendChild(submitAnswerBtn);
   outerDiv.appendChild(foundWords);
+  console.log(scrambleWord(words));
+  scrambledWordTitleText.textContent = scrambleWord(words);
+  outerDiv.appendChild(scrambledWordTitleText);
+}
+
+function scrambleWord(wordList) {
+  //take random word from list and randomize it for future use
+  let selectedIndex = Math.floor(Math.random() * wordList.length);
+  let randomWord = wordList[selectedIndex];
+  console.log(randomWord);
+  return randomWord;
 }
