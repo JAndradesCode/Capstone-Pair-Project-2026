@@ -62,15 +62,14 @@ function loadScreen() {
 
   //append gameScreen elements
   document.body.appendChild(outerDiv);
-
+  outerDiv.appendChild(scrambledWordTitleText);
   outerDiv.appendChild(scrambledWord);
   outerDiv.appendChild(timer);
   outerDiv.appendChild(userInput);
   outerDiv.appendChild(submitAnswerBtn);
   outerDiv.appendChild(foundWords);
   console.log(scrambleWord(words));
-  scrambledWordTitleText.textContent = scrambleWord(words);
-  outerDiv.appendChild(scrambledWordTitleText);
+  scrambledWord.textContent = scrambleWord(words);
 }
 
 function scrambleWord(wordList) {
@@ -78,5 +77,11 @@ function scrambleWord(wordList) {
   let selectedIndex = Math.floor(Math.random() * wordList.length);
   let randomWord = wordList[selectedIndex];
   console.log(randomWord);
-  return randomWord;
+
+  let scrambledWord = randomWord.split("");
+  for (let i = scrambledWord.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [scrambledWord[i], scrambledWord[j]] = [scrambledWord[j], scrambledWord[i]]; // Swap elements
+  }
+  return scrambledWord.join("");
 }
