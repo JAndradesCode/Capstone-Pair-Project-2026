@@ -87,7 +87,10 @@
   justify-self: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
+#points {
+  color: black;
+  font-size: 30px;
+}
 /* font family copied code  */
 .instrument-serif-regular {
   font-family: "Instrument Serif", serif;

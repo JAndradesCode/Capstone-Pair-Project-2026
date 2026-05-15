@@ -1,8 +1,5 @@
-//make gamescreen elements global scoped for future use
-//make the randomword appear, issues with it not being defined yet as its a lower function
-
 let words = [
-  ["apple", "appel", "apple", "pepla"],
+  ["apple", "appel", "pepla"],
   ["mountain"],
   ["ocean", "canoe"],
   ["bicycle"],
@@ -24,82 +21,126 @@ let words = [
   ["shadow"],
 ];
 
+let currentAnswers = [];
+let scrambledDisplayWord = "";
+
 let userInput;
-let randomWord;
-let submitAnswerBtn = document.createElement("button");
+let submitAnswerBtn;
+let score = 0;
+let guesses = 0;
+let totalWords;
+let roundTotal;
+let scrambledWord;
+let firstWord;
+let outerDiv;
 
 function loadScreen() {
-  //delete start screen
-  document.getElementById("titleText").remove();
-  document.getElementById("startGameBtn").remove();
-  document.getElementById("gameScreen").remove();
+  // Remove start screen
+  document.getElementById("titleText")?.remove();
+  document.getElementById("startGameBtn")?.remove();
+  document.getElementById("gameScreen")?.remove();
 
-  //make game screen elements
-  let outerDiv = document.createElement("div");
-  let scrambledWordTitleText = document.createElement("h2");
-  let scrambledWord = document.createElement("div");
-  let timer = document.createElement("div");
-  userInput = document.createElement("input"); //connect input to button
+  // Create elements
+  outerDiv = document.createElement("div");
+  const scrambledWordTitleText = document.createElement("h2");
+  scrambledWord = document.createElement("div");
+  const foundWords = document.createElement("div");
+  pointsDisplay = document.createElement("div");
+  totalWordsDisplay = document.createElement("div");
 
-  let foundWords = document.createElement("div");
+  userInput = document.createElement("input");
+  submitAnswerBtn = document.createElement("button");
+
+  // IDs
   outerDiv.id = "outerDiv";
   scrambledWord.id = "scrambledWord";
-  timer.id = "timer";
-  userInput.id = "userInput";
-  submitAnswerBtn.id = "submitAnswerBtn";
   foundWords.id = "foundWords";
+  pointsDisplay.id = "points";
+  totalWordsDisplay.id = "totalWords";
+  submitAnswerBtn.id = "submitAnswerBtn";
   scrambledWordTitleText.id = "scrambledWordTitleText";
-
-  //background color gradient
-  document.body.style.backgroundColor = "#076585";
-  document.body.style.background =
-    "-webkit-linear-gradient(to right, #fff, #076585)";
+  scrambledWord.id = "scrambledWord";
+  // Styles
   document.body.style.background = "linear-gradient(to right, #fff, #076585)";
-  scrambledWord.style.backgroundColor = "gray";
   document.body.style.display = "flex";
   document.body.style.justifyContent = "center";
   document.body.style.alignItems = "center";
   document.body.style.height = "100vh";
-  scrambledWord.textContent = "Placeholder Word";
 
+  scrambledWord.style.backgroundColor = "gray";
+  scrambledWord.style.padding = "20px";
+  scrambledWord.style.fontSize = "2rem";
+
+  // Text
+  scrambledWordTitleText.textContent = "Unscramble The Word";
   submitAnswerBtn.textContent = "SUBMIT";
-  userInput.placeholder = "Type Answer Here..";
+  userInput.placeholder = "Type Answer Here...";
 
-  //append gameScreen elements
+  scrambledDisplayWord = getRandomScrambledWord();
+  scrambledWord.textContent = scrambledDisplayWord;
+  pointsDisplay.textContent = "Score: " + score;
+
+  // Append elements
   document.body.appendChild(outerDiv);
+  outerDiv.appendChild(pointsDisplay);
+  outerDiv.appendChild(totalWordsDisplay);
   outerDiv.appendChild(scrambledWordTitleText);
   outerDiv.appendChild(scrambledWord);
-  outerDiv.appendChild(timer);
   outerDiv.appendChild(userInput);
-
   outerDiv.appendChild(submitAnswerBtn);
   outerDiv.appendChild(foundWords);
-  console.log(scrambleWord(words));
-  scrambledWord.textContent = scrambleWord(words);
+
+  // Button click
+  submitAnswerBtn.addEventListener("click", () => {
+    checkAnswer(foundWords);
+  });
 }
 
-function scrambleWord(wordList) {
-  //take random word from list and randomize it for future use
-  let selectedIndex = Math.floor(Math.random() * wordList.length);
-  let innerArrayIndex = Math.floor(Math.random() * wordList[selectedIndex]);
-  randomWord =
-    wordList[selectedIndex[innerArrayIndexIndex]] || wordList[selectedIndex];
-  console.log(randomWord);
+function getRandomScrambledWord() {
+  // Pick random word group
+  guesses = 0;
 
-  //find element using index on randomword then turn element into string
-  let scrambledWord = randomWord.split("");
-  for (let i = scrambledWord.length - 1; i > 0; i--) {
+  currentAnswers = words[Math.floor(Math.random() * words.length)];
+  totalWordsDisplay.textContent =
+    "Total Answers: " + guesses + "/" + currentAnswers.length;
+  firstWord = currentAnswers[0];
+  console.log(firstWord);
+  let letters = firstWord.split("");
+
+  for (let i = letters.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [scrambledWord[i], scrambledWord[j]] = [scrambledWord[j], scrambledWord[i]]; // Swap elements
+
+    [letters[i], letters[j]] = [letters[j], letters[i]];
   }
-  return scrambledWord.join("");
+
+  return letters.join("");
 }
 
-submitAnswerBtn.addEventListener("click", function () {
-  if (userInput.value == randomWord) {
-    console.log("success");
+function checkAnswer(foundWordsElement) {
+  const guess = userInput.value.toLowerCase().trim();
 
-    console.log("Button was clicked!");
-    alert("Hello World!");
+  // Check if guess exists in currentAnswers
+  if (currentAnswers.includes(guess)) {
+    foundWordsElement.innerHTML += `<p>${guess} ✅</p>`;
+    alert("Correct!");
+    score++;
+    guesses++;
+    pointsDisplay.textContent = "Score: " + score;
+    totalWordsDisplay.textContent =
+      "Total Answers: " + guesses + "/" + currentAnswers.length;
+  } else {
+    alert("Wrong answer!");
   }
-});
+
+  userInput.value = "";
+
+  if (guesses === currentAnswers.length) {
+    alert("Round Complete!");
+
+    foundWords.innerHTML = "";
+
+    scrambledDisplayWord = getRandomScrambledWord();
+
+    scrambledWord.textContent = scrambledDisplayWord;
+  }
+}
