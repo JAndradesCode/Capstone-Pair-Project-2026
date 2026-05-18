@@ -1,23 +1,24 @@
 let words = [
-  ["apple", "appel", "pepla"],
-  ["mountain"],
-  ["ocean", "canoe"],
-  ["bicycle"],
   ["galaxy"],
   ["window"],
+  ['family'],
+  ['center', 'centre', 'recent'],
+  ['credit', 'direct'],
+  ['safety'],
+  ['person'],
+  ['action', 'atonic', 'cation'],
+  ['mobile'],
+  ['source', 'course', 'crouse'],
+  ['region', 'ignore'],
   ["fetors", "forest", "fortes", "foster", "softer"],
   ["hammer"],
-  ["castle", "cleats", "eclats"],
-  ["bridge", "begird"],
-  ["river"],
-  ["journey"],
+  ["castle", "cleats"],
+  ["bridge"],
   ["winter", "twiner"],
-  ["flame", "fleam"],
-  ["ervils", "livers", "livres", "silver", "sliver"],
+  ["silver", "livers", "sliver"],
   ["danger", "gander", "garden", "ranged"],
-  ["cloud", "could"],
   ["desert", "deters", "rested"],
-  ["silent", "elints", "enlist", "inlets", "listen", "tinsel"],
+  ["silent", "elints", "enlist", "listen", "tinsel"],
   ["shadow"],
 ];
 
@@ -28,7 +29,6 @@ let userInput;
 let submitAnswerBtn;
 let score = 0;
 let guesses = 0;
-let totalWords;
 let roundTotal;
 let scrambledWord;
 let firstWord;
@@ -36,55 +36,60 @@ let outerDiv;
 
 function loadScreen() {
   // Remove start screen
-  document.getElementById("titleText")?.remove();
-  document.getElementById("startGameBtn")?.remove();
-  document.getElementById("gameScreen")?.remove();
+  // document.getElementById("titleText")?.remove();
+  // document.getElementById("startGameBtn")?.remove();
+  // document.getElementById("gameScreen")?.remove();
+
+  const pages = document.querySelectorAll(".page");
+  const translateAmount = 100; 
+  let translate = 0;
+
+  let slide = (direction) => {
+    direction === "next" ? translate -= translateAmount : translate += translateAmount;
+
+    pages.forEach(
+      pages => (pages.style.transform = `translateX(${translate}%)`)
+    );
+  }
+
+  slide('next');
 
   // Create elements
+  const playScreen = document.getElementById('playScreen');
   outerDiv = document.createElement("div");
-  const scrambledWordTitleText = document.createElement("h2");
+  const scrambledWordTitleText = document.createElement("h1");
   scrambledWord = document.createElement("div");
   const foundWords = document.createElement("div");
   pointsDisplay = document.createElement("div");
-  totalWordsDisplay = document.createElement("div");
 
   userInput = document.createElement("input");
+  userInput.setAttribute('type', 'text');
+
   submitAnswerBtn = document.createElement("button");
 
   // IDs
+  userInput.id = "userInput";
   outerDiv.id = "outerDiv";
   scrambledWord.id = "scrambledWord";
   foundWords.id = "foundWords";
   pointsDisplay.id = "points";
-  totalWordsDisplay.id = "totalWords";
   submitAnswerBtn.id = "submitAnswerBtn";
   scrambledWordTitleText.id = "scrambledWordTitleText";
   scrambledWord.id = "scrambledWord";
-  // Styles
-  document.body.style.background = "linear-gradient(to right, #fff, #076585)";
-  document.body.style.display = "flex";
-  document.body.style.justifyContent = "center";
-  document.body.style.alignItems = "center";
-  document.body.style.height = "100vh";
-
-  scrambledWord.style.backgroundColor = "gray";
-  scrambledWord.style.padding = "20px";
-  scrambledWord.style.fontSize = "2rem";
 
   // Text
   scrambledWordTitleText.textContent = "Unscramble The Word";
-  submitAnswerBtn.textContent = "SUBMIT";
-  userInput.placeholder = "Type Answer Here...";
+  submitAnswerBtn.textContent = "UNSCRAMBLE";
+  
 
   scrambledDisplayWord = getRandomScrambledWord();
   scrambledWord.textContent = scrambledDisplayWord;
   pointsDisplay.textContent = "Score: " + score;
 
   // Append elements
-  document.body.appendChild(outerDiv);
-  outerDiv.appendChild(pointsDisplay);
-  outerDiv.appendChild(totalWordsDisplay);
+  playScreen.appendChild(outerDiv);
   outerDiv.appendChild(scrambledWordTitleText);
+  outerDiv.appendChild(pointsDisplay);
   outerDiv.appendChild(scrambledWord);
   outerDiv.appendChild(userInput);
   outerDiv.appendChild(submitAnswerBtn);
@@ -101,10 +106,10 @@ function getRandomScrambledWord() {
   guesses = 0;
 
   currentAnswers = words[Math.floor(Math.random() * words.length)];
-  totalWordsDisplay.textContent =
-    "Total Answers: " + guesses + "/" + currentAnswers.length;
   firstWord = currentAnswers[0];
+
   console.log(firstWord);
+  userInput.setAttribute('maxlength', `${firstWord.length}`)
   let letters = firstWord.split("");
 
   for (let i = letters.length - 1; i > 0; i--) {
@@ -121,26 +126,66 @@ function checkAnswer(foundWordsElement) {
 
   // Check if guess exists in currentAnswers
   if (currentAnswers.includes(guess)) {
+
     foundWordsElement.innerHTML += `<p>${guess} ✅</p>`;
-    alert("Correct!");
+    // alert("Correct!");
+    showNotification('Correct!');
     score++;
     guesses++;
     pointsDisplay.textContent = "Score: " + score;
-    totalWordsDisplay.textContent =
-      "Total Answers: " + guesses + "/" + currentAnswers.length;
-  } else {
-    alert("Wrong answer!");
-  }
-
-  userInput.value = "";
-
-  if (guesses === currentAnswers.length) {
-    alert("Round Complete!");
-
+    
+    hooray();
+      
     foundWords.innerHTML = "";
 
     scrambledDisplayWord = getRandomScrambledWord();
 
     scrambledWord.textContent = scrambledDisplayWord;
+
+  } else {
+      showNotification('Wrong answer!');
+      // alert("Wrong answer!");
   }
+
+  userInput.value = "";
+}
+
+function showNotification(message) {
+    const container = document.querySelector('.notification-container');
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.textContent = message;
+    container.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+function hooray(){
+  const duration = 1.5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = {
+      startVelocity: 35,
+      spread: 360,
+      ticks: 120,
+      zIndex: 1000,
+    };
+    const interval = setInterval(() => {
+    const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+      for (let i = 0; i < 3; i++) {
+          confetti(
+            Object.assign({}, defaults, {
+              particleCount: 25,
+                origin: {
+                  x: Math.random(),
+                  y: Math.random() * 0.2,
+                },
+            }),
+          );
+        }
+      }, 150);
 }

@@ -1,105 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 * {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #gameScreen {
-  justify-items: center;
-  background: #ff6e7f;
-  background: #2193b0;
-  background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
-  background: linear-gradient(to right, #6dd5ed, #2193b0);
-
+  text-align: center;
+  background: linear-gradient(to right, #5a7dbf, #a8d0e6);
   height: 100vh;
 }
 
 #titleText {
-  font-family: "Instrument Serif", serif;
   font-weight: 600;
-  font-style: normal;
-  padding-top: 250px;
-  font-size: 80px;
+  font-size: 4.5rem;
   color: white;
-
+  text-align: center;
   text-shadow:
     1px 1px white,
     2px 2px black,
     3px 3px gray;
 }
-#startGameBtn {
-  font-family: "Instrument Serif", serif;
-  font-weight: 600;
-  font-style: normal;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 60px;
-  padding-right: 60px;
-  font-size: 30px;
-  margin: 40px;
-  background-color: blue;
+#startGameBtn{
+  font-size: 1.2rem;
+  padding: 8px;
+  margin-top: 20px;
+  width: 200px;
+  border: 2px solid white;
+  background-color: transparent;
   color: white;
-  display: grid;
-  justify-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.1s;
 }
-#outerDiv {
-  display: grid;
+#startGameBtn:hover{
+  transform: scale(1.05);
+  background-color:rgba(247, 247, 247, 0.15);
+}
+#gameContainer{
+  width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+#gamePages{
+  display: flex;
+	width: 200%;
+	box-sizing: border-box;	
+}
+.page{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+	gap: 10px;
+  transition: all 0.7s;
+}
+      
+#userInput{
+  --c: #1b2445; /* control the color of border */
+  --w: 1ch;   /* control the width for each letter */
+  --g: 5px;   /* control the gap between letter */
+  --b: 2px;   /* control the border */
+  --n: 6;    /* control the number of letters*/
+  font-size: 50px;
+  letter-spacing: var(--w);
+  font-family: monospace;
+  width: calc(var(--n)*(1ch + var(--w)));
+  -webkit-mask: 
+    repeating-linear-gradient(90deg,
+  #000  0 calc(1ch + var(--w) - var(--g)), 
+  #0000 0 calc(1ch + var(--w)))
+    0/calc(100% - var(--w)/2) 100% no-repeat;
+    padding-left: calc((var(--w) - var(--g))/2);
+    margin-right: calc(var(--w)/-2);
+    color: #000;
+    --_g: var(--b), #0000 90deg,var(--c) 0;
+    background:
+      conic-gradient(from  90deg at var(--b) var(--_g)),
+      conic-gradient(from -90deg at right calc(var(--b) + var(--g)) bottom var(--_g));
+    background-size: calc(1ch + var(--w)) 100%;
+    border: none;
+}
+
+#playScreen {
+  background: #a8d0e6;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  justify-self: center;
-  align-self: center;
-  height: 80vh;
-  width: 40%;
-  margin: auto;
-  background-color: rgba(186, 191, 209, 1);
-  border: 2px solid black;
-  border-radius: 30px;
+  color: #1b2445;
 }
-#userInput {
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 30px;
-  font-size: 30px;
+#outerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  margin: 20px;
+  padding: 50px;
+  background-color: #FAF9F6;
 }
-
+#scrambledWordTitleText{
+  font-size: 2.5rem;
+}
 #scrambledWord {
-  font-family: "Instrument Serif", serif;
   font-weight: 400;
-  font-size: 28px;
-  font-style: normal;
-  padding-left: 200px;
-  padding-right: 200px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  justify-self: center;
-  color: white;
-}
-#submitAnswerBtn {
-  background-color: #6dd5ed;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 200px;
-  padding-right: 200px;
   font-size: 30px;
-}
-#scrambledWordTitleText {
-  font-size: 30px;
+  letter-spacing: 2px;
   justify-self: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#submitAnswerBtn{
+  padding: 8px;
+  width: 200px;
+  font-size: 1.25rem;
+  color: #FAF9F6;
+  border: 2px solid #1b2445;
+  background-color: #5f8cdf;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.1s;
+}
+#submitAnswerBtn:hover{
+  transform: scale(1.05);
+  background-color:#5177bc;
 }
 #points {
-  color: black;
-  font-size: 30px;
+  font-size: 24px;
 }
-/* font family copied code  */
-.instrument-serif-regular {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
+.notification-container {
+    position: fixed;
+    top: 100vh/2;
+    right: 100vw/2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.instrument-serif-regular-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
+.notification {
+    background-color: #1e90ff;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInOut 4s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(100%); }
+    10% { opacity: 1; transform: translateX(0); }
+    90% { opacity: 0; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(100%); }
 }

@@ -14,9 +14,17 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <div id="gameScreen">
-      <h1 id="titleText">Word Scramble Guessing Game</h1>
-      <button id="startGameBtn" onclick="loadScreen()">Start Game</button>
+    <div id="gameContainer">
+      <div id="gamePages">
+        <div id="gameScreen" class="page">
+          <h1 id="titleText">Word Scramble Guessing Game</h1>
+          <button id="startGameBtn" onclick="loadScreen()">Start Game</button>
+        </div>
+        <div id="playScreen" class="page">
+          <div class="notification-container"></div>
+        </div>
+      </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   </body>
 </html>
