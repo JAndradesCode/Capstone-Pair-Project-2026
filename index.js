@@ -61,6 +61,7 @@ function loadScreen() {
   scrambledWord = document.createElement("div");
   const foundWords = document.createElement("div");
   pointsDisplay = document.createElement("div");
+  const rules = document.createElement('p');
 
   userInput = document.createElement("input");
   userInput.setAttribute('type', 'text');
@@ -76,6 +77,7 @@ function loadScreen() {
   submitAnswerBtn.id = "submitAnswerBtn";
   scrambledWordTitleText.id = "scrambledWordTitleText";
   scrambledWord.id = "scrambledWord";
+  rules.id = "rules";
 
   // Text
   scrambledWordTitleText.textContent = "Unscramble The Word";
@@ -85,11 +87,13 @@ function loadScreen() {
   scrambledDisplayWord = getRandomScrambledWord();
   scrambledWord.textContent = scrambledDisplayWord;
   pointsDisplay.textContent = "Score: " + score;
+  rules.textContent = "Make a word using the letters below!";
 
   // Append elements
   playScreen.appendChild(outerDiv);
   outerDiv.appendChild(scrambledWordTitleText);
   outerDiv.appendChild(pointsDisplay);
+  outerDiv.appendChild(rules);
   outerDiv.appendChild(scrambledWord);
   outerDiv.appendChild(userInput);
   outerDiv.appendChild(submitAnswerBtn);
